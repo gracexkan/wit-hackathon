@@ -4,7 +4,7 @@
 from flask import Flask, request
 from flask_cors import CORS
 import json
-from controllers import scrape_greater_syd_dams_data, status_check, scrape_regional_dams_data
+from controllers import scrape_greater_syd_dams_data, status_check, scrape_regional_dams_data, get_regional_dams_obj, get_greater_syd_dam_obj, evaporation_rate
 
 
 app = Flask(__name__)
@@ -13,7 +13,7 @@ data_store = []
 
 @app.route("/hc", methods=['GET'])
 def health_check():
-    return status_check()
+    return evaporation_rate(7, 21)
 
 @app.route("/scrape/regional", methods=['GET'])
 def get_regional_dams_data():
@@ -29,29 +29,31 @@ def db_clear():
 
 
 
-@app.route("/names", methods=['GET'])
+@app.route("/dams", methods=['GET'])
 def list_names():
-    global data_store
-    list_names = {
-        'names': data_store
-    }
-    return json.dumps(list_names)
+    return json.dumps(get_greater_syd_dam_obj() + get_regional_dams_obj())
 
 
-@app.route("/names/clear", methods=['DELETE'])
-def clear_db():
-    db_clear()
+@app.route("/rdams", methods=['GET'])
+def list_rg_names():
+    return json.dumps(get_regional_dams_obj())
+
+@app.route("/gsdams", methods=['GET'])
+def list_gs_names():
+    return json.dumps(get_greater_syd_dam_obj())
+
+@app.route("/client", methods=['DELETE'])
+def clear_from_db():
+    request_data = request.get_json()
+    client_name = request_data['client']
     return json.dumps({})
 
+# @app.route("/user", methods=['UPDATE'])
+# def add_user_to_service:
+#     pass
+#     # return json.dumps({})
 
-@app.route("/names/remove", methods=['DELETE'])
-def remove_name():
-    global data_store
-    print(data_store)
-    data_store = list(filter(lambda x: x not in request.get_json()[
-        'name'], data_store))
-    print(data_store)
-    return json.dumps({})
+
 
 
 if __name__ == "__main__":
