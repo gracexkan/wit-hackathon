@@ -5,7 +5,10 @@ from http import client
 from flask import Flask, request
 from flask_cors import CORS
 import json
-from controllers import get_dam_obj, edit_user_preference, remove_user, scrape_greater_syd_dams_data, status_check, scrape_regional_dams_data, get_regional_dams_obj, get_greater_syd_dam_obj, evaporation_rate
+from controllers import get_dam_information, get_dam_obj, edit_user_preference,\
+                         remove_user, scrape_greater_syd_dams_data, status_check,\
+                             scrape_regional_dams_data, get_regional_dams_obj,\
+                                 get_greater_syd_dam_obj, evaporation_rate
 
 
 app = Flask(__name__)
@@ -25,18 +28,21 @@ def get_greater_syd_dams_data():
     return scrape_greater_syd_dams_data()
 
 
-@app.route("/dams", methods=['GET'])
+@app.route("/damsdb", methods=['GET'])
 def list_names():
     return json.dumps(get_dam_obj())
 
 
-@app.route("/rdams", methods=['GET'])
+@app.route("/rdamsdb", methods=['GET'])
 def list_rg_names():
     return json.dumps(get_regional_dams_obj())
 
-@app.route("/gsdams", methods=['GET'])
+@app.route("/gsdamsdb", methods=['GET'])
 def list_gs_names():
     return json.dumps(get_greater_syd_dam_obj())
+
+
+# Important for frontend
 
 @app.route("/client", methods=['DELETE'])
 def clear_from_db():
@@ -56,6 +62,10 @@ def add_user_to_service():
     return json.dumps({})
 
 
+@app.route("/dam", methods=['GET'])
+def get_data_for_dam():
+    request_data = request.args.get("name")
+    return json.dumps(get_dam_information(request_data.strip("%20")))
 
 if __name__ == "__main__":
     app.run(port=5000)

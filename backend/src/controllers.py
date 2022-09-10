@@ -13,11 +13,6 @@ import sqldf
 
 from datetime import datetime, timedelta
 
-
-
-
-
-
 BASE_URL: str = "https://www.waternsw.com.au/supply/"
 REGIONAL_URL: str = f'{BASE_URL}regional-nsw/dam-levels/'
 GREATER_SYD_URL: str = f'{BASE_URL}Greater-Sydney/greater-sydneys-dam-levels/'
@@ -80,10 +75,10 @@ def get_dam_obj():
         return data
 
 def get_regional_dams_obj(): 
-    return get_dam_obj["regional"]
+    return get_dam_obj()["regional"]
     
 def get_greater_syd_dam_obj(): 
-    return get_dam_obj["greater-sydney"]
+    return get_dam_obj()["greater-sydney"]
 
 def set_dams_obj(data): 
     with open("./src/dams.json", "w") as f:
@@ -103,9 +98,7 @@ def remove_user(client_name):
 
 def edit_user_preference(client_name, dam_name):
     data = get_dam_obj()
-
     for obj in data["regional"]:
-        print(obj)
         if obj['name'] == dam_name:
             obj['clients'].append(client_name)
     for obj in data["greater-sydney"]:
@@ -114,18 +107,42 @@ def edit_user_preference(client_name, dam_name):
     set_dams_obj(data)
 
 
-def get_capacity_information(dam_name):
-    data = get_dam_obj()
-    capacity_info = { }
-    for obj in data["regional"]:
-        print(obj)
-        if obj['name'] == dam_name:
-            obj['clients'].append(client_name)
-    for obj in data["greater-sydney"]:
-        if obj['name'] == dam_name:
-            obj['clients'].append(client_name)
+def get_dam_information(dam_name):
+    response = { 
+        "name" : dam_name,
+        "surface": 0,
+        "lat": 0,
+        "long": 0,
+        "dam_current_level": 0,
+        "dam_storage_cap": 0,
+        "data_recorded": 0,
+    }
+    for obj in scrape_regional_dams_data():
+        if obj['dam_name'] == dam_name:
+            response['dam_current_level'] = int(obj['dam_current_level'])
+            response['dam_storage_cap'] = int(obj['dam_storage_cap'])
+            response['data_recorded'] = obj['data_recorded']
+            for read_file in get_regional_dams_obj(): 
+                if read_file['name'] == dam_name:
+                    response['surface'] = int(read_file['surface'])
+                    response['lat'] = float(read_file['lat'])
+                    response['lng'] = float(read_file['lng'])
 
-def calculate_costs(client_name, business_type, location): 
+    for obj in scrape_greater_syd_dams_data():
+        if obj['dam_name'] == dam_name:
+            print(obj['dam_current_level'])
+            response['dam_current_level'] = int(obj['dam_current_level'])
+            response['dam_storage_cap'] = int(obj['dam_storage_cap'])
+            response['data_recorded'] = obj['data_recorded']
+            for read_file in get_greater_syd_dam_obj(): 
+                if read_file['name'] == dam_name:
+                    response['surface'] = int(read_file['surface'])
+                    response['lat'] = float(read_file['lat'])
+                    response['lng'] = float(read_file['lng'])
+    return response
+
+    
+def get_most_effective_alloc(client_name, business_type, location): 
     if business_type == "regional":
         with open("./src/dams.json") as f:
 
@@ -140,11 +157,12 @@ def calculate_costs(client_name, business_type, location):
 
 
 
+
 def evaporation_rate(time_in_days: int, surface_area_of_body_km_2: int): 
     # https://calculator.agriculture.vic.gov.au/fwcalc/information/determining-the-evaporative-loss-from-a-farm-dam
     CONST_CONVERSION_FACTOR = 0.67
     date_l = [(datetime.now() + timedelta(days=i)).strftime('%Y-%m-%d') for i in range(time_in_days)]
-    #print(date_l)
+    # Get data persisted from trained ml model
     with open("./src/forecast.json") as f:
         data = json.load(f)
         accumulate_rainfall = 0
