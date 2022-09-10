@@ -1,4 +1,5 @@
-from lib2to3.pgen2.token import GREATER
+import json
+import os
 from typing import Type
 import requests
 import pandas as pd
@@ -42,7 +43,6 @@ def scrape_regional_dams_data():
     return _scrape_dams_data(REGIONAL_URL)
 
 def scrape_greater_syd_dams_data():
-    
     page = requests.get(GREATER_SYD_URL.strip())
     soup = BeautifulSoup(page.content, "html.parser")
     dam_data = soup.find(id="dams")
@@ -59,9 +59,22 @@ def scrape_greater_syd_dams_data():
             queried_dam_l.append(dam)
     return queried_dam_l
 
+
 def status_check(): 
     return "Backend for GRASS is alive!"
 
-def evaporation_rate(): 
+def calculate_costs(business_type, location): 
+    # if regional business, we look at closest regional places that are cost effective
+    #   if regional places are exhausted, we look at commercial places.
+    
+    # if commercial business, we first look at commercial places that are cost effective
+    #   if all of those are exhausted, we can then look into regional places.
+    pass
+
+def evaporation_rate(time_in_days: int, surface_area_of_body_km_2: int): 
     # https://calculator.agriculture.vic.gov.au/fwcalc/information/determining-the-evaporative-loss-from-a-farm-dam
-    e_gross_mm = CONST_CONVERSION_FACTOR * e_pan
+    CONST_CONVERSION_FACTOR = 0.67
+    e_pan = 900 / 180 * time_in_days
+    e_net = CONST_CONVERSION_FACTOR * e_pan - rainfall
+    e_total = surface_area_of_body_km_2 / 1000 * (e_net)
+    return e_total

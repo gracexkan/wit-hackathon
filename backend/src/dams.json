@@ -1,0 +1,152 @@
+{
+  "greater-sydney": [
+    {
+      "name": "Warragamba Dam",
+      "surface": 75,
+      "clients": []
+    },
+    {
+      "name": "Woronora Dam",
+      "surface": 3.8,
+      "clients": []
+    },
+    {
+      "name": "Avon Dam",
+      "surface": 142,
+      "clients": []
+    },
+    {
+      "name": "Cataract Dam",
+      "surface": 8.5,
+      "clients": []
+    },
+    {
+      "name": "Cordeaux Dam",
+      "surface": 8.2,
+      "clients": []
+    },
+    {
+      "name": "Nepean Dam",
+      "surface": 3.66,
+      "clients": []
+    },
+    {
+      "name": "Prospect Dam",
+      "surface": 5.25,
+      "clients": []
+    },
+    {
+      "name": "Wingecarribee Reservoir",
+      "surface": 6.3,
+      "clients": []
+    },
+    {
+      "name": "Fitzroy Falls Reservoir",
+      "surface": 5.2,
+      "clients": []
+    },
+    {
+      "name": "Tallowa Dam",
+      "surface": 8.3,
+      "clients": []
+    },
+    {
+      "name": "Blue Mountains Dams",
+      "surface": 0.05,
+      "clients": []
+    }
+  ],
+
+  "regional": [
+    {
+      "name": "Blowering Dam",
+      "surface": 4.05,
+      "clients": []
+    },
+    {
+      "name": "Brogo Dam",
+      "surface": 30.05,
+      "clients": []
+    },
+    {
+      "name": "Burrendong Dam",
+      "surface": 8.9,
+      "clients": []
+    },
+    {
+      "name": "Burrinjuck Dam",
+      "surface": 5.5,
+      "clients": []
+    },
+    {
+      "name": "Carcoar Dam",
+      "surface": 6.5,
+      "clients": []
+    },
+    {
+      "name": "Chaffey Dam",
+      "surface": 1.05,
+      "clients": []
+    },
+    {
+      "name": "Copeton Dam",
+      "surface": 4.6,
+      "clients": []
+    },
+    {
+      "name": "Glenbawn Dam",
+      "surface": 1300,
+      "clients": []
+    },
+    {
+      "name": "Glennies Creek Dam",
+      "surface": 1.5,
+      "clients": []
+    },
+    {
+      "name": "Hume Dam",
+      "surface": 21,
+      "clients": []
+    },
+    {
+      "name": "Keepit Dam",
+      "surface": 21,
+      "clients": []
+    },
+    {
+      "name": "Lake Wyangala",
+      "surface": 12,
+      "clients": []
+    },
+    {
+      "name": "Lostock Dam",
+      "surface": 22,
+      "clients": []
+    },
+    {
+      "name": "Menindee Lakes",
+      "surface": 1,
+      "clients": []
+    },
+    {
+      "name": "Pindari Dam",
+      "surface": 3,
+      "clients": []
+    },
+    {
+      "name": "Split Rock Dam",
+      "surface": 4,
+      "clients": []
+    },
+    {
+      "name": "Toonumbar Dam",
+      "surface": 8,
+      "clients": []
+    },
+    {
+      "name": "Windamere Dam",
+      "surface": 5,
+      "clients": []
+    }
+  ]
+}

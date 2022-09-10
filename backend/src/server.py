@@ -15,8 +15,6 @@ data_store = []
 def health_check():
     return status_check()
 
-
-
 @app.route("/scrape/regional", methods=['GET'])
 def get_regional_dams_data():
     return scrape_regional_dams_data()
