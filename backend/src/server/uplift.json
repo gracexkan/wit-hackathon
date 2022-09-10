@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "uplift-356506",
+  "private_key_id": "b7a7b0e1a9596adce1a9ae1bc02319dc01537ec7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDGfE22OI3zAOce\n+PLcoLwrv6YYm8Qqz/I9+O1HQJWpHBbTr5BvRzXuDmyDM4QgYVYZM+tNKTeYMx0D\nc7ubewcr3CNOxAoCbHOtA54Qvb5NXAwC51Rh21AWtOr1BnaxmT+dcnEU886VKOGJ\nHzG96367MtOz39t5CVXTb523xQTVg5DC0AqbEfcXFS2Rmwpzta8DBotSDsg7c3Af\nQ1P3ykHfXxC9ElE5uYFnwNrJs9/KetrkYSFc/F8B3871yJzSEanNG70q8XZxBK0U\nCi9rEeUQd24awRRJnSUSzYd71IyfY3DIOM25p9RFzRLgPHikKXP2mwaU3tQxQDB2\njkKwdhvnAgMBAAECggEAXPJBq+ag5l4SXOkkRVfJtkzpOVXcD1ZQcF/csUSXsNjU\nAa4Rm2KD6SX8/5WEtmsOV//9nKUEATRSTlcIT/9VNN9B83UO4OKraqYqg1lvP6eu\ngj+UvrxmLTPsYPB1baY/aXn5ZV/kaen6b21ZrD+WmY/sHiviiTPranc2qqNKp7bA\nPsPExU4fO5nZIyCe1/Wxg9SRSHsxDNLu1Y56NQ3S8aK88TIlNzFexkpOY4Q6V/J/\nFBM9niEQ/ZlYyxPyDNaURJx7hjjkE+PjulXzTZ6HpS5v/j+uyQOyhlN93bzejjqH\ni3sQzPj2ZiF3qwDEif+dPWUq5hhoBEBM2o8AqtHUrQKBgQDzJPooPL14Ull4hAZb\ngxK3NtLHc0yj8fLgNY7qyKyQxIKVnEqeRTVyCpS+gqiJBV3ZrB9kAt4QlLc36P2z\nbophNWIdAZgpxbZpOUxMJlNH3ZO4c3bwcVXBPAeGLN6hs43tUwyPkKl9SaZ+H/JO\nTmB96TGJWNm1KM1TsfV+nWZjiwKBgQDQ+ttdSSW9eHYD5fB1Qt9B14Eg5Cn4NbuS\n10V2BYMNAT0MCgTtX3Ev+FE8zH0B02qU4ebX+KDeSedxY2F6DQZay/IY5GXSaX++\nC3N83LN1iFtjsyEKZJbSnHpaeFVDmJAq2Uva7Y6r8YujId/nxV2HCbWLq+22tiGH\n31H/ePAElQKBgQCWExXArjT4RkPpKfxOkamEoncZGmaMrrMNhqFO80voExLSy2QX\nKnqhiDxlFnp2EHTr/NxnO4nbTB+Gh+3HyYvqEiwb4TcNWXaMngwk2GcA7ZfW+pXI\nNPwMSEQQojNMNWp9uIwBNPYYWdRE9uz1PlU6givMLaY6thN9/FKdswNWnwKBgAWF\n265HdJvhRx0rQoOW1NeknmEEJqfMo7xpvAg2dRQu6DIdQawUTaV65oq4zMTzlWmB\n3tvuUjINufQhMD5NgdF8elV2E8rPxvR60P6HxqZgiCnGXiUsK2A9im5Bp981dPns\n7DhI9vBMXehdyNETQjmDZCzgylN91L0GheA+jflRAoGBAN8UY53XYp/0c+tJ59yI\nf4K4gWBJ+s1YPrw6Wh91aUXzmYfqkcHLpC8Zm6k/RSgtxDakbddlZdSfBU3v6kMj\ntge7G4lMlIm8P2Vk0omFCchwtOvyekMMg6inFqFsBtIWYrEep1TrGzQg0eaPPfoS\nwkLM0B9UyVMDBoTzxrbyLbuw\n-----END PRIVATE KEY-----\n",
+  "client_email": "hackathon@uplift-356506.iam.gserviceaccount.com",
+  "client_id": "111092165441267353542",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/hackathon%40uplift-356506.iam.gserviceaccount.com"
+}
