@@ -3,7 +3,7 @@ import './dashboard.css'
 
 function AddNew() {
 	return (
-		<div className='addnew'>
+		<div className='container addnew'>
 			<a>Add New Location</a>
 		</div>
 	)

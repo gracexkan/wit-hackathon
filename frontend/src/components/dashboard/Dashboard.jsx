@@ -10,8 +10,8 @@ function Dashboard() {
 		<>
 			<Name />
 			<Widget />
-			<Offices />
 			<AddNew />
+			<Offices />
 		</>
 	)
 }

@@ -1,12 +1,14 @@
-import { Form, Input, InputNumber, Popconfirm, Table, Typography } from 'antd';
+import { Form, Input, InputNumber, Table } from 'antd';
 import React, { useState } from 'react';
-import {AiFillDelete, AiFillEdit} from 'react-icons/ai'
+import {AiFillDelete} from 'react-icons/ai'
 const originData = [];
 
 for (let i = 0; i < 1; i++) {
   originData.push({
     key: i.toString(),
     name: `McDonald's Chatswood`,
+		curr_source: `Warragamba Dam`,
+		dam_level: `97.8%`,
     curr: '$2.5 per kL',
     address: `Shop 20/21, 436 Victoria Ave, Chatswood NSW 2067`,
   });
@@ -92,47 +94,28 @@ const Offices = () => {
     {
       title: 'Name',
       dataIndex: 'name',
-      width: '25%',
+      width: '20%',
 			render: (text) => <a>{text}</a>,
-      editable: true,
     },
     {
       title: 'Address',
       dataIndex: 'address',
       width: '40%',
-      editable: true,
+    },
+    {
+      title: 'Current Source',
+      dataIndex: 'curr_source',
+      width: '15%',
+    },
+    {
+      title: 'Dam Level',
+      dataIndex: 'dam_level',
+      width: '10%',
     },
     {
       title: 'Current Cost',
       dataIndex: 'curr',
       width: '15%',
-      editable: false,
-    },
-    {
-      title: 'Edit',
-      dataIndex: 'edit',
-      render: (_, record) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <span>
-            <Typography.Link
-              onClick={() => save(record.key)}
-              style={{
-                marginRight: 8,
-              }}
-            >
-              Save
-            </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-            <AiFillEdit />
-          </Typography.Link>
-        );
-      },
     },
 		{
 			title: 'Delete',
@@ -169,7 +152,6 @@ const Offices = () => {
         bordered
         dataSource={data}
         columns={mergedColumns}
-        rowClassName="editable-row"
         pagination={{
           onChange: cancel,
         }}
