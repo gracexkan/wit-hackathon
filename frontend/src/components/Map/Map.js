@@ -8,9 +8,7 @@ import {
 } from "@react-google-maps/api";
 import google from "@googlemaps/react-wrapper";
 import Places from "./Places";
-import Distance from "./Distance";
 import { styled } from "@mui/system";
-import { Tooltip } from "@mui/material";
 import redPin from "../../assets/red_pin.png";
 import bluePin from "../../assets/blue_pin.png";
 import silverBluePin from "../../assets/silver_blue_pin.png";

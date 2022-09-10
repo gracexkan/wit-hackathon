@@ -16,6 +16,7 @@ import AppContextProvider from "./contexts/AppContext";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Widgets from './components/Widgets';
 
 import GlobalStyles from "./GlobalStyles";
 
@@ -81,8 +82,11 @@ const App = () => {
           <StyledBox>
             <Navbar handleToggleDarkMode={() => setDarkMode(!darkMode)} />
             <ContentWrapper>
-              <Content>
-                {!isLoaded ? <div>Loading...</div> : <Map />}
+            <Content>
+                <TimetableWrapper>
+                  <Widgets />
+                  {!isLoaded ? <div>Loading...</div> : <Map />}
+                </TimetableWrapper>
               </Content>
             </ContentWrapper>
             <Footer />
