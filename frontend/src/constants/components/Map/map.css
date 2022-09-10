@@ -1,0 +1,14 @@
+.map-container {
+  width: 100%;
+  height: 100%;
+}
+
+.highlight {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.combobox-input {
+  width: 100%;
+  padding: 0.5rem;
+}
