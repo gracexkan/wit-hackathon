@@ -25,7 +25,7 @@ const Container = styled("div")`
 
 const MapBox = styled("div")`
   width: 100%;
-  height: 100vh;
+  height: 92.5%;
 `;
 
 const allDams = [

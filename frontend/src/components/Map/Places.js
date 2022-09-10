@@ -42,6 +42,7 @@ export default function Places({ setOffice }) {
     <Combobox onSelect={handleSelect}>
       {/* User types into this box */}
       <ComboboxInput
+        styles={{borderColor: "grey"}}
         value={value}
         // listen to changes
         onChange={(e) => setValue(e.target.value)}
