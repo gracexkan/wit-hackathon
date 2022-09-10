@@ -205,7 +205,7 @@ const allDams = [
   }
 ];
 
-export default function Map() {
+export default function Map({darkMode}) {
   // Latitude and Longitude
   const [office, setOffice] = useState();
   const [directions, setDirections] = useState();

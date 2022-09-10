@@ -85,7 +85,7 @@ const App = () => {
             <Content>
                 <TimetableWrapper>
                   <Widgets />
-                  {!isLoaded ? <div>Loading...</div> : <Map />}
+                  {!isLoaded ? <div>Loading...</div> : <Map darkMode={darkMode} />}
                 </TimetableWrapper>
               </Content>
             </ContentWrapper>
