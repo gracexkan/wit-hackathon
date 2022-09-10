@@ -6,8 +6,10 @@ import tw, { styled as twinStyled } from 'twin.macro';
 import { lightTheme, darkTheme } from './constants/theme';
 import AppContextProvider from './contexts/AppContext';
 
+import './index.css'
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import MapInfo from './components/MapInfo/MapInfo';
 
 import GlobalStyles from './GlobalStyles';
 
@@ -64,8 +66,11 @@ const App = () => {
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
         <GlobalStyles />
         <StyledApp>
+					
           <StyledBox>
+						<MapInfo />
             <Navbar handleToggleDarkMode={() => setDarkMode(!darkMode)} />
+						
             <Footer />
           </StyledBox>
         </StyledApp>

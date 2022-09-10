@@ -1,0 +1,16 @@
+.info__container {
+	background: #d6e4ff;
+	padding: 2rem 2rem;
+	border-radius: 2rem;
+	max-width: 40%;
+  position: fixed;
+  top: 25%;
+  left: 50%;
+	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.info__list {
+	display: grid;
+	grid-template-columns: 30% 70%;
+	gap: 1rem;
+}
