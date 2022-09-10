@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { styled } from '@mui/system';
 import { Box, ThemeProvider, useTheme } from '@mui/material';
 
-import tw, { styled as twinStyled } from 'twin.macro';
 import { lightTheme, darkTheme } from './constants/theme';
 import AppContextProvider from './contexts/AppContext';
 
@@ -45,14 +44,6 @@ const Content = styled(Box)`
   gap: 15px;
   text-align: center;
   padding: 0px;
-`;
-
-const TimetableWrapper = styled(Box)`
-  flex: 1;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
 `;
 
 const App = () => {
