@@ -3,149 +3,206 @@
     {
       "name": "Warragamba Dam",
       "surface": 75,
+      "lat": -33.88,
+      "lng": 150.6,
       "clients": []
     },
     {
       "name": "Woronora Dam",
       "surface": 3.8,
+      "lat": -34.11,
+      "lng": 150.94,
       "clients": []
     },
     {
       "name": "Avon Dam",
       "surface": 142,
+      "lat": -34.35,
+      "lng": 150.63,
       "clients": []
     },
     {
       "name": "Cataract Dam",
       "surface": 8.5,
+      "lat": -34.27,
+      "lng": 150.8,
       "clients": []
     },
     {
       "name": "Cordeaux Dam",
       "surface": 8.2,
+      "lat": -34.34,
+      "lng": 150.75,
       "clients": []
     },
     {
       "name": "Nepean Dam",
       "surface": 3.66,
+      "lat": -34.33,
+      "lng": 150.61,
       "clients": []
     },
     {
       "name": "Prospect Dam",
       "surface": 5.25,
+      "lat": -33.82,
+      "lng": 150.89,
       "clients": []
     },
     {
       "name": "Wingecarribee Reservoir",
       "surface": 6.3,
+      "lat": -34.56,
+      "lng": 150.5,
       "clients": []
     },
     {
       "name": "Fitzroy Falls Reservoir",
       "surface": 5.2,
+      "lat": -34.64,
+      "lng": 150.5,
       "clients": []
     },
     {
       "name": "Tallowa Dam",
       "surface": 8.3,
+      "lat": -34.77,
+      "lng": 150.31,
       "clients": []
     },
     {
       "name": "Blue Mountains Dams",
       "surface": 0.05,
+      "at": -33.7,
+      "lng": 150.3,
       "clients": []
     }
   ],
-
   "regional": [
     {
       "name": "Blowering Dam",
       "surface": 4.05,
+      "lat": -35.62,
+      "lng": 148.3,
       "clients": []
     },
     {
       "name": "Brogo Dam",
       "surface": 30.05,
+      "lat": -36.49,
+      "lng": 149.74,
       "clients": []
     },
     {
       "name": "Burrendong Dam",
       "surface": 8.9,
+      "lat": -32.67,
+      "lng": 149.11,
       "clients": []
     },
     {
       "name": "Burrinjuck Dam",
       "surface": 5.5,
+      "lat": -35.0,
+      "lng": 148.58,
       "clients": []
     },
     {
       "name": "Carcoar Dam",
       "surface": 6.5,
+      "lat": -33.62,
+      "lng": 149.18,
       "clients": []
     },
     {
       "name": "Chaffey Dam",
       "surface": 1.05,
+      "lat": -31.35,
+      "lng": 151.12,
       "clients": []
     },
     {
       "name": "Copeton Dam",
       "surface": 4.6,
+      "lat": -29.9,
+      "lng": 150.92,
       "clients": []
     },
     {
       "name": "Glenbawn Dam",
       "surface": 1300,
+      "lat": -32.09,
+      "lng": 150.99,
       "clients": []
     },
     {
       "name": "Glennies Creek Dam",
       "surface": 1.5,
+      "lat": -32.36,
+      "lng": 151.25,
       "clients": []
     },
     {
       "name": "Hume Dam",
       "surface": 21,
+      "lat": -36.11,
+      "lng": 147.03,
       "clients": []
     },
     {
       "name": "Keepit Dam",
       "surface": 21,
+      "lat": -30.87,
+      "lng": 150.5,
       "clients": []
     },
     {
       "name": "Lake Wyangala",
       "surface": 12,
+      "lat": -33.98,
+      "lng": 148.95,
       "clients": []
     },
     {
       "name": "Lostock Dam",
       "surface": 22,
+      "lat": -32.33,
+      "lng": 151.45,
       "clients": []
     },
     {
       "name": "Menindee Lakes",
       "surface": 1,
+      "lat": -32.36,
+      "lng": 142.34,
       "clients": []
     },
     {
       "name": "Pindari Dam",
       "surface": 3,
+      "lat": -29.4,
+      "lng": 151.26,
       "clients": []
     },
     {
       "name": "Split Rock Dam",
       "surface": 4,
+      "lat": -30.55,
+      "lng": 150.69,
       "clients": []
     },
     {
       "name": "Toonumbar Dam",
       "surface": 8,
+      "lat": -28.62,
+      "lng": 152.8,
       "clients": []
     },
     {
       "name": "Windamere Dam",
       "surface": 5,
+      "lat": -32.73,
+      "lng": 149.77,
       "clients": []
     }
   ]

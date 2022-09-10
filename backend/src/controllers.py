@@ -1,4 +1,5 @@
 from distutils.command.build_ext import build_ext
+from itertools import accumulate
 import json
 import os
 from typing import Type
@@ -85,37 +86,51 @@ def get_greater_syd_dam_obj():
     return get_dam_obj["greater-sydney"]
 
 def set_dams_obj(data): 
-    with open("./src/dams.json") as f:
-        json.dump(data, f)
+    with open("./src/dams.json", "w") as f:
+        f.write(json.dumps(data))
 
 
 def remove_user(client_name):
     data = get_dam_obj()
     for obj in data["regional"]:
         if client_name in obj['clients']:
-            obj['clients'].pop(client_name)
+            obj['clients'].remove(client_name)
     for obj in data["greater-sydney"]:
         if client_name in obj['clients']:
-            obj['clients'].pop(client_name)
+            obj['clients'].remove(client_name)
     set_dams_obj(data)
 
 
 def edit_user_preference(client_name, dam_name):
     data = get_dam_obj()
+
     for obj in data["regional"]:
-        if obj['dam_name'] == dam_name:
-            obj['clients'].add(client_name)
+        print(obj)
+        if obj['name'] == dam_name:
+            obj['clients'].append(client_name)
     for obj in data["greater-sydney"]:
-        if obj['dam_name'] == dam_name:
-            obj['clients'].add(client_name)
+        if obj['name'] == dam_name:
+            obj['clients'].append(client_name)
     set_dams_obj(data)
 
+
+def get_capacity_information(dam_name):
+    data = get_dam_obj()
+    capacity_info = { }
+    for obj in data["regional"]:
+        print(obj)
+        if obj['name'] == dam_name:
+            obj['clients'].append(client_name)
+    for obj in data["greater-sydney"]:
+        if obj['name'] == dam_name:
+            obj['clients'].append(client_name)
 
 def calculate_costs(client_name, business_type, location): 
     if business_type == "regional":
         with open("./src/dams.json") as f:
+
             data = json.load(f)
-            print(data)
+            evaporation_rate(7, data)
     # if regional business, we look at closest regional places that are cost effective
     #   if regional places are exhausted, we look at commercial places.
 
@@ -128,16 +143,16 @@ def calculate_costs(client_name, business_type, location):
 def evaporation_rate(time_in_days: int, surface_area_of_body_km_2: int): 
     # https://calculator.agriculture.vic.gov.au/fwcalc/information/determining-the-evaporative-loss-from-a-farm-dam
     CONST_CONVERSION_FACTOR = 0.67
-    nod=time_in_days
-    df=pd.read_csv('./src/forecast.csv')
-    print(df)
-    current_date=datetime.today().strftime('%Y-%m-%d')
-    next_date = (datetime.now() + timedelta(days=int(nod))).strftime('%Y-%m-%d')
-  
-    # query = "SELECT sum(yhat1) FROM {} where ds between '{}'   and '{}' ".format(df, current_date,next_date) 
-    # x = sqldf.run(query).values.tolist()
-    # print(x)
+    date_l = [(datetime.now() + timedelta(days=i)).strftime('%Y-%m-%d') for i in range(time_in_days)]
+    #print(date_l)
+    with open("./src/forecast.json") as f:
+        data = json.load(f)
+        accumulate_rainfall = 0
+        for x in data:
+            if x['ds'] in date_l:
+                accumulate_rainfall += float(x['yhat1'])
     e_pan = 900 / 180 * time_in_days
-    e_net = CONST_CONVERSION_FACTOR * e_pan - 2
+    e_net = CONST_CONVERSION_FACTOR * e_pan - accumulate_rainfall
     e_total = surface_area_of_body_km_2 / 1000 * (e_net)
     return e_total
+
