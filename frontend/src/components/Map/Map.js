@@ -10,6 +10,10 @@ import google from "@googlemaps/react-wrapper";
 import Places from "./Places";
 import Distance from "./Distance";
 import { styled } from "@mui/system";
+import { Tooltip } from "@mui/material";
+import redPin from "../../assets/red_pin.png";
+import bluePin from "../../assets/blue_pin.png";
+import silverBluePin from "../../assets/silver_blue_pin.png";
 
 import "./map.css";
 
@@ -26,13 +30,192 @@ const MapBox = styled("div")`
   height: 100vh;
 `;
 
+const allDams = [
+  {
+    name: "Blowering Dam",
+    lat: -35.62,
+    lng: 148.30,
+    type: "regional",
+  },
+  {
+    name: "Brogo Dam",
+    lat: -36.49,
+    lng: 149.74,
+    type: "regional",
+  },
+  {
+    name: "Burrendong Dam",
+    lat: -32.67,
+    lng: 149.11,
+    type: "regional",
+  },
+  {
+    name: "Burrinjuck Dam",
+    lat: -35.00,
+    lng: 148.58,
+    type: "regional",
+  },
+  {
+    name: "Carcoar Dam",
+    lat: -33.62,
+    lng: 149.18,
+    type: "regional",
+  },
+  {
+    name: "Chaffey Dam",
+    lat: -31.35,
+    lng: 151.12,
+    type: "regional",
+  },
+  {
+    name: "Copeton Dam",
+    lat: -29.90,
+    lng: 150.92,
+    type: "regional",
+  },
+  {
+    name: "Glenbawn Dam",
+    lat: -32.09,
+    lng: 150.99,
+    type: "regional",
+  },
+  {
+    name: "Glennies Creek Dam",
+    lat: -32.36,
+    lng: 151.25,
+    type: "regional",
+  },
+  {
+    name: "Hume Dam",
+    lat: -36.11,
+    lng: 147.03,
+    type: "regional",
+  },
+  {
+    name: "Keepit Dam",
+    lat: -30.87,
+    lng: 150.50,
+    type: "regional",
+  },
+  {
+    name: "Lake Wyangala",
+    lat: -33.98,
+    lng: 148.95,
+    type: "regional",
+  },
+  {
+    name: "Lostock Dam",
+    lat: -32.33,
+    lng: 151.45,
+    type: "regional",
+  },
+  {
+    name: "Menindee Lakes",
+    lat: -32.36,
+    lng: 142.34,
+    type: "regional",
+  },
+  {
+    name: "Pindari Dam",
+    lat: -29.40,
+    lng: 151.26,
+    type: "regional",
+  },
+  {
+    name: "Split Rock Dam",
+    lat: -30.55,
+    lng: 150.69,
+    type: "regional",
+  },
+  {
+    name: "Toonumbar Dam",
+    lat: -28.62,
+    lng: 152.80,
+    type: "regional",
+  },
+  {
+    name: "Windamere Dam",
+    lat: -32.73,
+    lng: 149.77,
+    type: "regional",
+  },
+  {
+    name: "Warragamba Dam",
+    lat: -33.88,
+    lng: 150.60,
+    type: "sydney",
+  },
+  {
+    name: "Woronora Dam",
+    lat: -34.11,
+    lng: 150.94,
+    type: "sydney",
+  },
+  {
+    name: "Avon Dam",
+    lat: -34.35,
+    lng: 150.63,
+    type: "sydney",
+  },
+  {
+    name: "Cataract Dam",
+    lat: -34.27,
+    lng: 150.80,
+    type: "sydney",
+  },
+  {
+    name: "Cordeaux Dam",
+    lat: -34.34,
+    lng: 150.75,
+    type: "sydney",
+  },
+  {
+    name: "Nepean Dam",
+    lat: -34.33,
+    lng: 150.61,
+    type: "sydney",
+  },
+  {
+    name: "Prospect Dam",
+    lat: -33.82,
+    lng: 150.89,
+    type: "sydney",
+  },
+  {
+    name: "Wingecarribee Reservoir",
+    lat: -34.56,
+    lng: 150.50,
+    type: "sydney",
+  },
+  {
+    name: "Fitzroy Falls Reservoir",
+    lat: -34.64,
+    lng: 150.50,
+    type: "sydney",
+  },
+  {
+    name: "Tallowa Dam",
+    lat: -34.77,
+    lng: 150.31,
+    type: "sydney",
+  },
+  {
+    name: "Blue Mountains Dams",
+    lat: -33.70,
+    lng: 150.30,
+    type: "sydney",
+  }
+];
+
 export default function Map() {
+  // Latitude and Longitude
   const [office, setOffice] = useState();
   const [directions, setDirections] = useState();
   const mapRef = useRef();
   const center = useMemo(() => ({ lat: -33.0, lng: 147.0 }), []);
   const options = useMemo(
     () => ({
+      // get mapId manually via the Google Maps Platform
       mapId: "b181cac70f27f5e6",
       disableDefaultUI: true,
       clickableIcons: false,
@@ -40,6 +223,7 @@ export default function Map() {
     []
   );
   const onLoad = useCallback((map) => (mapRef.current = map), []);
+  // whenever the center changes, generate houses again
   const houses = useMemo(() => generateHouses(center), [center]);
 
   const fetchDirections = (house) => {
@@ -62,6 +246,11 @@ export default function Map() {
 
   return (
     <MapBox>
+      <Places setOffice={(position) => {
+        // pan to your selected office
+        setOffice(position);
+        mapRef.current?.panTo(position);
+      }} />
       <GoogleMap
         zoom={6}
         center={center}
@@ -84,20 +273,24 @@ export default function Map() {
 
         {office && (
           <>
-            <Marker
-              position={office}
-              icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-            />
+              <Marker
+                position={office}
+              icon={redPin}
+              title={"Your Selected Office"}
+              />
+
 
             <MarkerClusterer>
               {(clusterer) =>
-                houses.map((house) => (
+                allDams.map((dam) => (
                   <Marker
-                    key={house.lat}
-                    position={house}
+                    key={dam.lat + dam.lng}
+                    title={dam.name}
+                    position={{ lat: dam.lat, lng: dam.lng }}
+                    icon={dam.type === "regional" ? silverBluePin : bluePin}
                     clusterer={clusterer}
                     onClick={() => {
-                      fetchDirections(house);
+                      fetchDirections({lat: dam.lat, lng: dam.lng});
                     }}
                   />
                 ))

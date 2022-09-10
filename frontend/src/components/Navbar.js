@@ -31,6 +31,7 @@ const NavbarWrapper = styled(`div`)`
 const StyledNavBar = styled(AppBar)`
   gap: 40px;
   background: linear-gradient(220deg, #ffffff, #dde7f5);
+  opacity: 97%;
   z-index: 1201;
 `;
 
