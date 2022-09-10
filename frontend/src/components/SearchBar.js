@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
-import tw, { styled } from 'twin.macro';
+import { styled } from '@mui/system';
+import tw, { styled as twinStyled } from 'twin.macro';
 import { Combobox } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon, MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import algoliasearch from 'algoliasearch';
@@ -12,54 +13,106 @@ const index = client.initIndex('courses');
 
 const purple = 'hsl(287.5, 54.5%, 54%)';
 
-const BarContainer = tw.div`
-  relative w-full
-  rounded bg-white text-left shadow-md
-  cursor-default overflow-hidden
-  focus:outline-none
-  focus-visible:(ring-2 ring-white ring-opacity-75 ring-offset-2 ring-offset-pink-300)
+const StyledMessage = styled('div')`
+  position: relative; 
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem; 
+  padding-left: 1rem;
+  padding-right: 1rem; 
+  color: #374151; 
+  cursor: default; 
+  user-select: none; 
 `;
 
-const OptionItem = styled.li({
-  ...tw`relative cursor-default select-none py-2 pl-10 pr-4 text-gray-900`,
+const StyledComboboxOptions = styled(Combobox.Options)`
+  overflow: auto; 
+  position: absolute; 
+  z-index: 10; 
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem; 
+  margin-top: 0.25rem; 
+  background-color: #ffffff; 
+  font-size: 1rem;
+  line-height: 1.5rem; 
+  width: 100%; 
+  border-radius: 0.375rem; 
+  box-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color); 
+  --ring-color: #000000; 
+  --ring-opacity: 0.05; 
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); 
+`;
 
-  variants: {
-    active: {
-      true: tw`bg-[${purple}] text-white`,
-      false: tw`text-gray-900`,
-    },
-  },
-});
+const StyledIcon = styled('div')`
+  display: flex; 
+  position: absolute; 
+  top: 0;
+  bottom: 0; 
+  left: 0; 
+  padding-left: 0.75rem; 
+  align-items: center;
+`;
 
-const OptionName = styled.div({
-  ...tw`block truncate`,
+const StyledMagnifyingGlassIcon = styled(MagnifyingGlassIcon)`
+  color: #9CA3AF; 
+  width: 1.25rem; 
+  height: 1.25rem; 
+`;
 
-  variants: {
-    selected: {
-      true: tw`font-medium`,
-      false: tw`font-normal`,
-    },
-  },
-});
+const StyledChevronUpDownIcon = styled(ChevronUpDownIcon)`
+  color: #9CA3AF; 
+  width: 1.25rem; 
+  height: 1.25rem; 
+`;
 
-const CheckContainer = styled.span({
-  ...tw`absolute inset-y-0 left-0 flex items-center pl-3`,
+const SearchBarContainer = styled('div')`
+  text-align: left; 
+  width: 100%; 
+`;
 
-  variants: {
-    active: {
-      true: tw`text-white`,
-      false: tw`text-[${purple}]`,
-    },
-  },
-});
+const BarContainer = styled('div')`
+  overflow: hidden; 
+  position: relative; 
+  background-color: #ffffff; 
+  text-align: left; 
+  width: 100%; 
+  border-radius: 0.25rem; 
+  --ring-color: #ffffff; 
+  --ring-opacity: 0.75; 
+  --ring-offset-width: 2px;
+  box-shadow: 0 0 0 var(--ring-offset-width) var(--ring-offset-color), var(--ring-shadow); 
+  cursor: default; 
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
+`;
 
-type Entry = {
-  objectID: string;
-  course_code: string;
-};
+const OptionItem = styled('liv')`
+  position: relative; 
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem; 
+  padding-right: 1rem; 
+  padding-left: 2.5rem; 
+  cursor: default; 
+  user-select: none; 
+`;
+
+const OptionName = styled('div')`
+  display: block; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; 
+`;
+
+const CheckContainer = styled('span')`
+  display: flex; 
+  position: absolute; 
+  top: 0;
+  bottom: 0; 
+  left: 0; 
+  padding-left: 0.75rem; 
+  align-items: center; 
+`;
 
 const SearchBar = () => {
-  const [selected, setSelected] = useState({ objectID: '', course_code: '' });
+  const [selected, setSelected] = useState({ objectID: '', companyOffice: '' });
   const [query, setQuery] = useState('');
   const [filtered, setFiltered] = useState([]);
 
@@ -77,48 +130,48 @@ const SearchBar = () => {
 
   useEffect(() => {
     if (!timetable) return;
-    timetable[selected.course_code] = [];
+    timetable[selected.companyOffice] = [];
   }, [selected]);
 
   return (
-    <div tw="w-full text-left">
+    <SearchBarContainer>
       <Combobox value={selected} onChange={setSelected}>
-        <div tw="relative mt-1">
+        <div style={{textAlign: "left", width: "100%" }}>
           <BarContainer>
-            <div tw="absolute inset-y-0 left-0 flex items-center pl-3">
-              <MagnifyingGlassIcon tw="h-5 w-5 text-gray-400" aria-hidden="true" />
-            </div>
+            <StyledIcon>
+              <StyledMagnifyingGlassIcon aria-hidden="true" />
+            </StyledIcon>
             <Combobox.Input
-              tw="w-full border-none py-3 pl-10 pr-10 leading-5 text-gray-900 focus:ring-0"
-              displayValue={(entry: Entry) => entry.course_code}
+              style={{paddingTop: "0.75rem", paddingBottom: "0.75rem", paddingRight: "2.5rem", paddingLeft: "2.5rem", color: "#111827",  lineHeight: "1.25rem" , width: "100%", borderStyle: "none" }}
+              displayValue={(entry) => entry.companyOffice}
               onChange={event => setQuery(event.target.value)}
             />
-            <Combobox.Button tw="absolute inset-y-0 right-0 flex items-center pr-3">
-              <ChevronUpDownIcon tw="h-5 w-5 text-gray-400" aria-hidden="true" />
+            <Combobox.Button style={{display: "flex", position: "absolute", top: 0, bottom: 0, right: 0, paddingRight: "0.75rem", alignItems: "center" }}>
+              <StyledChevronUpDownIcon aria-hidden="true" />
             </Combobox.Button>
           </BarContainer>
           <Transition
             as={Fragment}
-            enter={tw`transition ease-out duration-150`}
-            enterFrom={tw`opacity-0 translate-y-2`}
-            leave={tw`transition ease-in duration-150`}
-            leaveTo={tw`opacity-0 translate-y-2`}
+            enter={"transition ease-out duration-150"}
+            enterFrom={"opacity-0 translate-y-2"}
+            leave={"transition ease-in duration-150"}
+            leaveTo={"opacity-0 translate-y-2"}
             afterLeave={() => setQuery('')}
           >
-            <Combobox.Options tw="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <StyledComboboxOptions>
               {filtered.length === 0 && query !== '' ? (
-                <div tw="relative cursor-default select-none py-2 px-4 text-gray-700">
+                <StyledMessage>
                   Nothing found.
-                </div>
+                </StyledMessage>
               ) : (
                 filtered.map(entry => (
                   <Combobox.Option key={entry.objectID} value={entry}>
                     {({ selected, active }) => (
                       <OptionItem active={active}>
-                        <OptionName selected={selected}>{entry.course_code}</OptionName>
+                        <OptionName selected={selected}>{entry.companyOffice}</OptionName>
                         {selected ? (
                           <CheckContainer active={active}>
-                            <CheckIcon tw="h-5 w-5" aria-hidden="true" />
+                            <CheckIcon style={{width: "1.25rem"}} aria-hidden="true" />
                           </CheckContainer>
                         ) : null}
                       </OptionItem>
@@ -126,11 +179,11 @@ const SearchBar = () => {
                   </Combobox.Option>
                 ))
               )}
-            </Combobox.Options>
+            </StyledComboboxOptions>
           </Transition>
         </div>
       </Combobox>
-    </div>
+    </SearchBarContainer>
   );
 };
 
