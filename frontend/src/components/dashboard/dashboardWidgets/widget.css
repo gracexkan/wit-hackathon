@@ -1,0 +1,14 @@
+.widget__container {
+	display: grid;
+	gap: 5rem;
+	grid-template-columns: 1fr 1fr 1fr;
+	max-width: 70%;
+}
+
+.widget__container > div {
+	padding: 2rem 2rem;
+	border-radius: 2rem;
+	border: 1px solid transparent;
+	-webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+	box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+}

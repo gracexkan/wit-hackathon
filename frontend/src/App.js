@@ -8,8 +8,7 @@ import AppContextProvider from './contexts/AppContext';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Name from './components/dashboard/companyName';
-import Offices from './components/dashboard/companyOffices';
+import Dashboard from './components/dashboard/Dashboard';
 
 import GlobalStyles from './GlobalStyles';
 
@@ -66,8 +65,7 @@ const App = () => {
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
         <GlobalStyles />
         <StyledApp>
-          <Name />
-          <Offices />
+          <Dashboard />
           <StyledBox>
             <Navbar handleToggleDarkMode={() => setDarkMode(!darkMode)} />
             <Footer />
