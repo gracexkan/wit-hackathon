@@ -68,7 +68,7 @@ const App = () => {
   const [darkMode, setDarkMode] = useState(false);
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "",
+    googleMapsApiKey: "AIzaSyDK4BVXxJvxPF-Nm3FqgthoNpQXeRJd2rU",
     libraries: ["places"],
   });
 

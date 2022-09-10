@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import {
   GoogleMap,
   Marker,
@@ -223,22 +223,27 @@ export default function Map() {
     []
   );
   const onLoad = useCallback((map) => (mapRef.current = map), []);
-  // whenever the center changes, generate houses again
-  const houses = useMemo(() => generateHouses(center), [center]);
+  const dams = useMemo(() => allDams, [center]);
 
-  const fetchDirections = (house) => {
+  // whenever the center changes, generate houses again
+
+  const fetchDirections = (dam) => {
+    // no office, just return
     if (!office) return;
 
+    // calculate directions from position to office
     const service = new google.maps.DirectionsService();
     service.route(
       {
-        origin: house,
+        origin: dam,
         destination: office,
         travelMode: google.maps.TravelMode.DRIVING,
       },
       (result, status) => {
         if (status === "OK" && result) {
           setDirections(result);
+          console.log(result)
+          console.log(google)
         }
       }
     );
@@ -282,12 +287,12 @@ export default function Map() {
 
             <MarkerClusterer>
               {(clusterer) =>
-                allDams.map((dam) => (
+                dams.map((dam) => (
                   <Marker
                     key={dam.lat + dam.lng}
-                    title={dam.name}
                     position={{ lat: dam.lat, lng: dam.lng }}
-                    icon={dam.type === "regional" ? silverBluePin : bluePin}
+                    title={dam.name}
+                    icon={dam.type === "regional" ? bluePin : silverBluePin}
                     clusterer={clusterer}
                     onClick={() => {
                       fetchDirections({lat: dam.lat, lng: dam.lng});
@@ -335,16 +340,4 @@ const farOptions = {
   fillOpacity: 0.05,
   strokeColor: "#FF5252",
   fillColor: "#FF5252",
-};
-
-const generateHouses = (position) => {
-  const _houses = [];
-  for (let i = 0; i < 100; i++) {
-    const direction = Math.random() < 0.5 ? -2 : 2;
-    _houses.push({
-      lat: position.lat + Math.random() / direction,
-      lng: position.lng + Math.random() / direction,
-    });
-  }
-  return _houses;
 };
