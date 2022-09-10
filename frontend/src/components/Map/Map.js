@@ -9,11 +9,11 @@ import {
 import google from "@googlemaps/react-wrapper";
 import Places from "./Places";
 import Distance from "./Distance";
-import { styled } from '@mui/system';
+import { styled } from "@mui/system";
 
 import "./map.css";
 
-const Container = styled('div')`
+const Container = styled("div")`
   width: 100%;
   display: flex;
   gap: 15px;
@@ -21,7 +21,7 @@ const Container = styled('div')`
   padding: 25px;
 `;
 
-const MapBox = styled('div')`
+const MapBox = styled("div")`
   width: 100%;
   height: 100vh;
 `;
@@ -30,10 +30,7 @@ export default function Map() {
   const [office, setOffice] = useState();
   const [directions, setDirections] = useState();
   const mapRef = useRef();
-  const center = useMemo(
-    () => ({ lat: -33.00, lng: 147.00 }),
-    []
-  );
+  const center = useMemo(() => ({ lat: -33.0, lng: 147.0 }), []);
   const options = useMemo(
     () => ({
       mapId: "b181cac70f27f5e6",
@@ -64,54 +61,54 @@ export default function Map() {
   };
 
   return (
-      <MapBox>
-        <GoogleMap
-          zoom={6}
-          center={center}
-          mapContainerClassName="map-container"
-          options={options}
-          onLoad={onLoad}
-        >
-          {directions && (
-            <DirectionsRenderer
-              directions={directions}
-              options={{
-                polylineOptions: {
-                  zIndex: 50,
-                  strokeColor: "#1976D2",
-                  strokeWeight: 5,
-                },
-              }}
+    <MapBox>
+      <GoogleMap
+        zoom={6}
+        center={center}
+        mapContainerClassName="map-container"
+        options={options}
+        onLoad={onLoad}
+      >
+        {directions && (
+          <DirectionsRenderer
+            directions={directions}
+            options={{
+              polylineOptions: {
+                zIndex: 50,
+                strokeColor: "#1976D2",
+                strokeWeight: 5,
+              },
+            }}
+          />
+        )}
+
+        {office && (
+          <>
+            <Marker
+              position={office}
+              icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
             />
-          )}
 
-          {office && (
-            <>
-              <Marker
-                position={office}
-                icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-              />
+            <MarkerClusterer>
+              {(clusterer) =>
+                houses.map((house) => (
+                  <Marker
+                    key={house.lat}
+                    position={house}
+                    clusterer={clusterer}
+                    onClick={() => {
+                      fetchDirections(house);
+                    }}
+                  />
+                ))
+              }
+            </MarkerClusterer>
 
-              <MarkerClusterer>
-                {(clusterer) =>
-                  houses.map((house) => (
-                    <Marker
-                      key={house.lat}
-                      position={house}
-                      clusterer={clusterer}
-                      onClick={() => {
-                        fetchDirections(house);
-                      }}
-                    />
-                  ))
-                }
-              </MarkerClusterer>
-
-              <Circle center={office} radius={15000} options={closeOptions} />
-              <Circle center={office} radius={30000} options={middleOptions} />
-              <Circle center={office} radius={45000} options={farOptions} />
-            </>
-          )}
+            <Circle center={office} radius={15000} options={closeOptions} />
+            <Circle center={office} radius={30000} options={middleOptions} />
+            <Circle center={office} radius={45000} options={farOptions} />
+          </>
+        )}
       </GoogleMap>
     </MapBox>
   );

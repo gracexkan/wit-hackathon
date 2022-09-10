@@ -5,6 +5,7 @@
   "proxy": "http://127.0.0.1:8080",
   "homepage": "http://localhost:3000",
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@emotion/core": "^10.1.1",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
@@ -19,6 +20,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "algoliasearch": "^4.14.2",
+    "antd": "^4.23.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",

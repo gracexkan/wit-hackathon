@@ -1,8 +1,7 @@
-import { createContext, useState, ReactNode } from 'react';
-import storage from '../storage';
+import { createContext, useState, ReactNode } from "react";
+import storage from "../storage";
 
 export const AppContext = createContext({
-
   isDarkMode: false,
   setIsDarkMode: () => {},
 
@@ -14,9 +13,11 @@ export const AppContext = createContext({
 });
 
 const AppContextProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(storage.get('isDarkMode'));
-  const [isSendNotification, setIsSendNotification] = useState(storage.get('isSendNotification'));
-  const [createdTasks, setCreatedTasks] = useState(storage.get('createdTasks'));
+  const [isDarkMode, setIsDarkMode] = useState(storage.get("isDarkMode"));
+  const [isSendNotification, setIsSendNotification] = useState(
+    storage.get("isSendNotification")
+  );
+  const [createdTasks, setCreatedTasks] = useState(storage.get("createdTasks"));
 
   const initialContext = {
     isDarkMode,
@@ -27,7 +28,9 @@ const AppContextProvider = ({ children }) => {
     setCreatedTasks,
   };
 
-  return <AppContext.Provider value={initialContext}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider value={initialContext}>{children}</AppContext.Provider>
+  );
 };
 
 export default AppContextProvider;

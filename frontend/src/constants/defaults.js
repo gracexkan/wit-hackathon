@@ -1,7 +1,7 @@
 const defaults = {
-    isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
-    isSendNotification: false,
-    createdTasks: [],
-  };
-  
+  isDarkMode: window.matchMedia("(prefers-color-scheme: dark)").matches,
+  isSendNotification: false,
+  createdTasks: [],
+};
+
 export default defaults;
