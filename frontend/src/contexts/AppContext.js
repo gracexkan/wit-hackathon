@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, ReactNode } from 'react';
 import storage from '../storage';
 
 export const AppContext = createContext({
