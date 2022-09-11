@@ -1,6 +1,6 @@
-import defaults from './constants/defaults';
+import defaults from "./constants/defaults";
 
-const STORAGE_KEY = 'data';
+const STORAGE_KEY = "data";
 
 const storage = {
   get: (key) => {
