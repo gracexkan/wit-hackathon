@@ -5,10 +5,10 @@ from http import client
 from flask import Flask, request
 from flask_cors import CORS
 import json
-from controllers import get_dam_information, get_dam_obj, edit_user_preference,\
+from controllers import get_most_effective_alloc, get_dam_information, get_dam_obj, edit_user_preference,\
                          remove_user, scrape_greater_syd_dams_data, status_check,\
                              scrape_regional_dams_data, get_regional_dams_obj,\
-                                 get_greater_syd_dam_obj, evaporation_rate
+                                 get_greater_syd_dam_obj
 
 
 app = Flask(__name__)
@@ -56,9 +56,7 @@ def add_user_to_service():
     request_data = request.get_json()
     client_name = request_data['client']
     dam_name = request_data['dam_name']
-    # location = request_data['client']
     edit_user_preference(client_name, dam_name)
-    # return json.dumps({})
     return json.dumps({})
 
 
@@ -66,6 +64,12 @@ def add_user_to_service():
 def get_data_for_dam():
     request_data = request.args.get("name")
     return json.dumps(get_dam_information(request_data.strip("%20")))
+
+@app.route("/optimaldam", methods=['POST'])
+def optimal_assignment():
+    request_data = request.get_json()
+    return json.dumps(get_most_effective_alloc(request_data['business_type'], request_data['lat'], request_data['lng']))
+
 
 if __name__ == "__main__":
     app.run(port=5000)

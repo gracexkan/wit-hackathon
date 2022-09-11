@@ -1,5 +1,5 @@
 {
-  "greater-sydney": [
+  "greater_sydney": [
     {
       "name": "Warragamba Dam",
       "surface": 75,
@@ -72,8 +72,8 @@
     },
     {
       "name": "Blue Mountains Dams",
-      "surface": 0.05,
-      "at": -33.7,
+      "surface": 32.05,
+      "lat": -33.7,
       "lng": 150.3,
       "clients": []
     }
@@ -173,8 +173,8 @@
     {
       "name": "Menindee Lakes",
       "surface": 1,
-      "lat": -32.36,
-      "lng": 142.34,
+      "lat": -32.30,
+      "lng": 142.20,
       "clients": []
     },
     {
