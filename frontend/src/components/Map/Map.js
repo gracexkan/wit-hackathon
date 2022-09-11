@@ -230,12 +230,12 @@ export default function Map({darkMode}) {
     if (!office) return;
 
     // calculate directions from position to office
-    const service = new google.maps.DirectionsService();
+    const service = new window.google.maps.DirectionsService();
     service.route(
       {
         origin: dam,
         destination: office,
-        travelMode: google.maps.TravelMode.DRIVING,
+        travelMode: window.google.maps.TravelMode.DRIVING,
       },
       (result, status) => {
         if (status === "OK" && result) {

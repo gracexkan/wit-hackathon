@@ -73,7 +73,6 @@ const App = () => {
     libraries: ["places"],
   });
 
-
   return (
     <AppContextProvider>
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
@@ -82,7 +81,7 @@ const App = () => {
           <StyledBox>
             <Navbar handleToggleDarkMode={() => setDarkMode(!darkMode)} />
             <ContentWrapper>
-            <Content>
+              <Content>
                 <TimetableWrapper>
                   <Widgets />
                   {!isLoaded ? <div>Loading...</div> : <Map darkMode={darkMode} />}
