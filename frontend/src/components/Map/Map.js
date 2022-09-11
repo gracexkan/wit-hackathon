@@ -27,7 +27,7 @@ const Container = styled("div")`
 const StyledCard = styled(Card)`
   width: 180px;
   marginLeft: 20px;
-  marginTop: ${({ props }) => (props.currSelected === "Currently Selected" ? "30px" : "0px")};
+  marginTop: 10px;
 `;
 
 const MapBox = styled("div")`
@@ -277,7 +277,7 @@ export default function Map({ darkMode }) {
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Access-Control-Allow-Origin", "http://localhost:5000");
     myHeaders.append("Access-Control-Allow-Methods", "POST");
-    myHeaders.append("Content-Type", "Authorization");
+
 
     let raw = JSON.stringify({
       "business_type": "regional",
@@ -326,7 +326,7 @@ export default function Map({ darkMode }) {
             <p>{information.data_recorded}</p>
             <p>{information.cost_incurred}</p>
           </Modal>
-          <StyledCard theme={{ currSelected: currSelected }} title="Legend" size="small">
+          <StyledCard title="Legend" size="small">
             <div style={{ display: "flex", flexDirection: "row", gap: "5px", justifyText: "left"}}>
               <img src={redPin} style={{width: "20px", height: "20px"}} />
               <p style={{ fontSize: "11px" }}>Currently Selected Office</p>
