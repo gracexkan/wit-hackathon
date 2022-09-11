@@ -16,19 +16,18 @@ import { Button, Modal, Card } from 'antd';
 
 import "./map.css";
 
-const newContent = (
-  <div>
-    <p>Content</p>
-    <p>Content</p>
-  </div>
-);
-
 const Container = styled("div")`
   width: 100%;
   display: flex;
   gap: 15px;
   text-align: center;
   padding: 25px;
+`;
+
+const StyledCard = styled(Card)`
+  width: 180px;
+  marginLeft: 20px;
+  marginTop: ${({ props }) => (props.currSelected === "Currently Selected" ? "30px" : "0px")};
 `;
 
 const MapBox = styled("div")`
@@ -213,11 +212,14 @@ const allDams = [
   }
 ];
 
-export default function Map({darkMode}) {
+export default function Map({ darkMode }) {
+  
   // Latitude and Longitude
   const [office, setOffice] = useState();
   const [directions, setDirections] = useState();
-  const [currSelected, setCurrSelected] = useState('Currently Selected')
+  const [currSelected, setCurrSelected] = useState('Currently Selected');
+  const [information, setInformation] = useState({});
+  const [finishedLoading, setFinishedLoading] = useState(false);
   const mapRef = useRef();
   const center = useMemo(() => ({ lat: -33.0, lng: 147.0 }), []);
   const options = useMemo(
@@ -270,6 +272,29 @@ export default function Map({darkMode}) {
     );
   };
 
+  useEffect(() => {
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    
+    let raw = JSON.stringify({
+      "business_type": "regional",
+      "lat": -33.98,
+      "lng": 148.95
+    });
+    
+    let requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    
+    fetch("http://localhost:5000/optimaldam", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }, [currSelected]);
+
   return (
     <MapBox>
       <Places setOffice={(position) => {
@@ -285,15 +310,20 @@ export default function Map({darkMode}) {
         onLoad={onLoad}
       >
         <>
-          <Button type="primary" style={{marginTop: "5px"}} onClick={showModal}>
+          {currSelected !== "Currently Selected" && <Button type="primary" style={{ marginTop: "5px" }} onClick={showModal}>
             View Selected Details
-          </Button>
+          </Button>}
           <Modal title={currSelected + " Water Source Details"} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
+            {console.log(information)}
+            <p>{information.surface}</p>
+            <p>{information.lat}</p>
+            <p>{information.lng}</p>
+            <p>{information.dam_current_level}</p>
+            <p>{information.dam_storage_cap}</p>
+            <p>{information.data_recorded}</p>
+            <p>{information.cost_incurred}</p>
           </Modal>
-          <Card title="Legend" size="small" style={{width: "180px", marginLeft: "20px", marginTop: "-15px"}}>
+          <StyledCard theme={{ currSelected: currSelected }} title="Legend" size="small">
             <div style={{ display: "flex", flexDirection: "row", gap: "5px", justifyText: "left"}}>
               <img src={redPin} style={{width: "20px", height: "20px"}} />
               <p style={{ fontSize: "11px" }}>Currently Selected Office</p>
@@ -306,7 +336,7 @@ export default function Map({darkMode}) {
               <img src={silverBluePin} style={{width: "20px", height: "20px"}} />
               <p style={{ fontSize: "11px" }}>Regional Water Source</p>
             </div>
-          </Card>
+          </StyledCard>
         </>
         {directions && (
           <DirectionsRenderer
