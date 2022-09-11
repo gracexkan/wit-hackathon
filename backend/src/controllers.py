@@ -11,7 +11,6 @@ import bs4
 from bs4 import BeautifulSoup
 import re
 import pandas as pd
-import sqldf
 from geopy.distance import geodesic as GD
 from datetime import datetime, timedelta
 THRESH_VAL = 0.6

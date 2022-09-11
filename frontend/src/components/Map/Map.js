@@ -275,7 +275,10 @@ export default function Map({ darkMode }) {
   useEffect(() => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    
+    myHeaders.append("Access-Control-Allow-Origin", "http://localhost:5000");
+    myHeaders.append("Access-Control-Allow-Methods", "POST");
+    myHeaders.append("Content-Type", "Authorization");
+
     let raw = JSON.stringify({
       "business_type": "regional",
       "lat": -33.98,

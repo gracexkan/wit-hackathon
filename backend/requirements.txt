@@ -33,7 +33,6 @@ scipy==1.9.1
 Shapely==1.8.4
 six==1.16.0
 soupsieve==2.3.2.post1
-sqldf==0.4.2
 threadpoolctl==3.1.0
 urllib3==1.26.12
 Werkzeug==2.2.2
