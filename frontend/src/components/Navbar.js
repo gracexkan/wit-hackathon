@@ -11,12 +11,13 @@ import {
 import { styled } from "@mui/system";
 import React from "react";
 import tw, { styled as twinStyled } from "twin.macro";
-import logo from "../assets/logo.svg";
+import logo from "../assets/logo.png";
 
 const NavbarBox = styled("div")`
   flex-grow: 1;
   position: fixed;
   margin-left: 0px;
+  padding-left: 0px;
   z-index: 1201;
   margin-bottom: 10px;
 `;
@@ -24,6 +25,8 @@ const NavbarBox = styled("div")`
 const NavbarWrapper = styled(`div`)`
   display: flex;
   flex-direction: row;
+  margin-left: 0px;
+  padding-left: 0px;
   flex: 1 1 0%;
   align-items: center;
 `;
@@ -33,6 +36,8 @@ const StyledNavBar = styled(AppBar)`
   background: linear-gradient(220deg, #ffffff, #dde7f5);
   opacity: 97%;
   z-index: 1201;
+  margin-left: 0px;
+  padding-left: 0px;
 `;
 
 const NavbarTitle = styled(Typography)`
@@ -45,6 +50,8 @@ const NavbarTitle = styled(Typography)`
 const LogoImg = styled("img")`
   height: 46px;
   margin-right: 12.5px;
+  margin-left: 0px;
+  padding-left: 0px;
   margin-top: -2px;
 `;
 
@@ -56,8 +63,8 @@ const Navbar = ({ handleToggleDarkMode }) => {
       <StyledNavBar>
         <Toolbar sx={{ gap: "10px" }}>
           <NavbarWrapper>
-            <LogoImg src={logo} sx={{ marginRight: "0px" }} />
-            <NavbarTitle>GRASS App Name</NavbarTitle>
+            <LogoImg src={logo} sx={{ marginLeft: "-10px", paddingLeft: "-10px", marginRight: "15px" }} />
+            <NavbarTitle sx={{fontSize: "20px"}}>Visualising Water</NavbarTitle>
             <Tooltip title="Change theme">
               <IconButton
                 onClick={handleToggleDarkMode}
