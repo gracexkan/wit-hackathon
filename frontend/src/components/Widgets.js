@@ -32,7 +32,7 @@ const Widgets = () => (
     </Tooltip>
     <Tooltip title="Map">
       <IconButton
-        href="http://localhost:3000/map"
+        href="http://localhost:3000"
         target="_blank"
         color="inherit"
         sx={{ width: '50px', height: '50px' }}
