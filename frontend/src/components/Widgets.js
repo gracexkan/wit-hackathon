@@ -22,7 +22,7 @@ const Widgets = () => (
   <WidgetsContainer>
     <Tooltip title="Dashboard">
       <IconButton
-        href="http://localhost:3000/dashboard"
+        href="http://localhost:3001/"
         target="_blank"
         color="inherit"
         sx={{ width: '50px', height: '50px' }}
@@ -42,7 +42,7 @@ const Widgets = () => (
     </Tooltip>
     <Tooltip title="Settings">
       <IconButton
-        href="http://localhost:3000/settings"
+        href="http://localhost:3002"
         target="_blank"
         color="inherit"
         sx={{ width: '50px', height: '50px' }}
