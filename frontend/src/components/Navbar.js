@@ -64,7 +64,7 @@ const Navbar = ({ handleToggleDarkMode }) => {
         <Toolbar sx={{ gap: "10px" }}>
           <NavbarWrapper>
             <LogoImg src={logo} sx={{ marginLeft: "-10px", paddingLeft: "-10px", marginRight: "15px" }} />
-            <NavbarTitle sx={{fontSize: "20px"}}>Visualise Water</NavbarTitle>
+            <NavbarTitle sx={{fontSize: "20px", fontFamily: "Roboto"}}>Visualise Water</NavbarTitle>
             <Tooltip title="Change theme">
               <IconButton
                 onClick={handleToggleDarkMode}
