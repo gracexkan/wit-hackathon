@@ -217,6 +217,7 @@ export default function Map({darkMode}) {
   // Latitude and Longitude
   const [office, setOffice] = useState();
   const [directions, setDirections] = useState();
+  const [currSelected, setCurrSelected] = useState('Currently Selected')
   const mapRef = useRef();
   const center = useMemo(() => ({ lat: -33.0, lng: 147.0 }), []);
   const options = useMemo(
@@ -287,7 +288,7 @@ export default function Map({darkMode}) {
           <Button type="primary" style={{marginTop: "5px"}} onClick={showModal}>
             View Selected Details
           </Button>
-          <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+          <Modal title={currSelected + " Water Source Details"} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             <p>Some contents...</p>
             <p>Some contents...</p>
             <p>Some contents...</p>
@@ -337,6 +338,7 @@ export default function Map({darkMode}) {
                     icon={dam.type !== "regional" ? bluePin : silverBluePin}
                     clusterer={clusterer}
                     onClick={() => {
+                      setCurrSelected(dam.name)
                       fetchDirections({lat: dam.lat, lng: dam.lng});
                     }}
                   />
