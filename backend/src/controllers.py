@@ -1,4 +1,5 @@
 from distutils.command.build_ext import build_ext
+from heapq import merge
 from itertools import accumulate
 import json
 import os
@@ -141,40 +142,6 @@ def dam_info_reducer(dam_elem, dam_location_type):
 
 
 def get_dam_information(dam_elem, dam_location_type):
-    # response = { 
-    #     "name" : dam_name,
-    #     "surface": 0,
-    #     "lat": 0,
-    #     "long": 0,
-    #     "dam_current_level": 0,
-    #     "dam_storage_cap": 0,
-    #     "data_recorded": 0,
-    #     "cost_incurred": 0
-    # }
-    # for obj in scrape_regional_dams_data():
-    #     if obj['dam_name'] == dam_name:
-    #         response['dam_current_level'] = int(obj['dam_current_level'])
-    #         response['dam_storage_cap'] = int(obj['dam_storage_cap'])
-    #         response['data_recorded'] = obj['data_recorded']
-    #         for read_file in get_regional_dams_obj(): 
-    #             if read_file['name'] == dam_name:
-    #                 response['surface'] = int(read_file['surface'])
-    #                 response['lat'] = float(read_file['lat'])
-    #                 response['lng'] = float(read_file['lng'])
-    #         response['cost_incurred'] = MIN_COST if response['dam_current_level'] / response['dam_storage_cap'] < THRESH_VAL else MAX_COST
-
-    # for obj in scrape_greater_syd_dams_data():
-    #     if obj['dam_name'] == dam_name:
-    #         response['dam_current_level'] = int(obj['dam_current_level'])
-    #         response['dam_storage_cap'] = int(obj['dam_storage_cap'])
-    #         response['data_recorded'] = obj['data_recorded']
-    #         for read_file in get_greater_syd_dam_obj(): 
-    #             if read_file['name'] == dam_name:
-    #                 response['surface'] = int(read_file['surface'])
-    #                 response['lat'] = float(read_file['lat'])
-    #                 response['lng'] = float(read_file['lng'])
-    #         response['cost_incurred'] = MIN_COST if response['dam_current_level'] / response['dam_storage_cap'] < THRESH_VAL else MAX_COST
-    
     response1 = dam_info_reducer(dam_elem, dam_location_type="regional")
     response2 = dam_info_reducer(dam_elem, dam_location_type="greater_sydney")
     return response1 if response2 is None else response2
@@ -201,7 +168,6 @@ def get_ml_predicted_capacity(curr_cap, max_cap, surface_area_km_2):
     return get_dam_cost_payout(curr_cap - er, max_cap)
      
 def haversines_dist(lat1, lon1, lat2, lon2):
-    print(lat1, lon1, lat2, lon2)
     return GD((lat1, lon1), (lat2, lon2)).km
 
 def get_most_effective_alloc(business_type, lat, lng): 
@@ -226,7 +192,12 @@ def get_most_effective_alloc(business_type, lat, lng):
     if business_type == "regional":
         # Regionals get the advantage of the closest reservoirs first.
         merged_ranked = regional_ranked + greater_sydney_ranked
-        # sorted(merged_ranked, key = lambda reservoir: haversines_dist(lat, lng, reservoir["lat"], reservoir["lng"]))
+        if None in merged_ranked:
+            merged_ranked.remove(None)
+        merged_ranked = sorted(merged_ranked, key = lambda reservoir:  haversines_dist(lat, lng, reservoir["lat"], reservoir["lng"]) 
+        )
+
+        
         # There could be the edge case that the closest reservoir is in the greater sydney region,
         # in that case the user will be prompted to take this.
 
@@ -239,7 +210,7 @@ def get_most_effective_alloc(business_type, lat, lng):
         # If we get here, then we have checked by distance and min cost. 
         # Now we rank by closest reservoir that has most remaining capacity in the next projected days. 
         # This is the most effective allocation of water to the client.
-        sorted(merged_ranked, key = lambda reservoir: reservoir["dam_current_level"] / reservoir["dam_storage_cap"])
+        merged_ranked = sorted(merged_ranked, key = lambda reservoir: reservoir["dam_current_level"] / reservoir["dam_storage_cap"])
         return merged_ranked[0]
 
     elif business_type == "greater_sydney":
@@ -249,7 +220,7 @@ def get_most_effective_alloc(business_type, lat, lng):
             else: 
                 # This incurred max cost 
                 selected_reservoir = info
-        sorted(greater_sydney_ranked, key = lambda reservoir: reservoir["dam_current_level"] / reservoir["dam_storage_cap"])
+        merged_ranked = sorted(greater_sydney_ranked, key = lambda reservoir: reservoir["dam_current_level"] / reservoir["dam_storage_cap"])
         return greater_sydney_ranked[0]
     
 
