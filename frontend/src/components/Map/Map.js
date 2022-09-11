@@ -12,7 +12,7 @@ import { styled } from "@mui/system";
 import redPin from "../../assets/red_pin.png";
 import bluePin from "../../assets/blue_pin.png";
 import silverBluePin from "../../assets/silver_blue_pin.png";
-import { Button, Modal } from 'antd';
+import { Button, Modal, Card } from 'antd';
 
 import "./map.css";
 
@@ -292,6 +292,20 @@ export default function Map({darkMode}) {
             <p>Some contents...</p>
             <p>Some contents...</p>
           </Modal>
+          <Card title="Legend" size="small" style={{width: "180px", marginLeft: "20px", marginTop: "-15px"}}>
+            <div style={{ display: "flex", flexDirection: "row", gap: "5px", justifyText: "left"}}>
+              <img src={redPin} style={{width: "20px", height: "20px"}} />
+              <p style={{ fontSize: "11px" }}>Currently Selected Office</p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "row", gap: "5px", justifyText: "left" }}>
+              <img src={bluePin} style={{width: "20px", height: "20px"}} />
+              <p style={{ fontSize: "11px" }}>Greater Sydney Water Source</p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "row", gap: "5px", justifyText: "left" }}>
+              <img src={silverBluePin} style={{width: "20px", height: "20px"}} />
+              <p style={{ fontSize: "11px" }}>Regional Water Source</p>
+            </div>
+          </Card>
         </>
         {directions && (
           <DirectionsRenderer
@@ -320,7 +334,7 @@ export default function Map({darkMode}) {
                     key={dam.lat + dam.lng}
                     position={{ lat: dam.lat, lng: dam.lng }}
                     title={dam.name}
-                    icon={dam.type === "regional" ? bluePin : silverBluePin}
+                    icon={dam.type !== "regional" ? bluePin : silverBluePin}
                     clusterer={clusterer}
                     onClick={() => {
                       fetchDirections({lat: dam.lat, lng: dam.lng});
