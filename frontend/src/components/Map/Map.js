@@ -12,8 +12,16 @@ import { styled } from "@mui/system";
 import redPin from "../../assets/red_pin.png";
 import bluePin from "../../assets/blue_pin.png";
 import silverBluePin from "../../assets/silver_blue_pin.png";
+import { Button, Modal } from 'antd';
 
 import "./map.css";
+
+const newContent = (
+  <div>
+    <p>Content</p>
+    <p>Content</p>
+  </div>
+);
 
 const Container = styled("div")`
   width: 100%;
@@ -109,8 +117,8 @@ const allDams = [
   },
   {
     name: "Menindee Lakes",
-    lat: -32.36,
-    lng: 142.34,
+    lat: -32.30,
+    lng: 142.20,
     type: "regional",
   },
   {
@@ -223,6 +231,20 @@ export default function Map({darkMode}) {
   const onLoad = useCallback((map) => (mapRef.current = map), []);
   const dams = useMemo(() => allDams, [center]);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   // whenever the center changes, generate houses again
 
   const fetchDirections = (dam) => {
@@ -261,6 +283,16 @@ export default function Map({darkMode}) {
         options={options}
         onLoad={onLoad}
       >
+        <>
+          <Button type="primary" style={{marginTop: "5px"}} onClick={showModal}>
+            View Selected Details
+          </Button>
+          <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+          </Modal>
+        </>
         {directions && (
           <DirectionsRenderer
             directions={directions}
@@ -276,13 +308,11 @@ export default function Map({darkMode}) {
 
         {office && (
           <>
-              <Marker
-                position={office}
-              icon={redPin}
-              title={"Your Selected Office"}
-              />
-
-
+            <Marker
+              position={office}
+            icon={redPin}
+            title={"Your Selected Office"}
+          />
             <MarkerClusterer>
               {(clusterer) =>
                 dams.map((dam) => (
