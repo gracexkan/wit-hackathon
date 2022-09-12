@@ -1,3 +1,5 @@
+# Please note that if you would like to run this application, you will need your own Google API key. The existing one has been deleted as we are reaching our maximum quota of API calls.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
